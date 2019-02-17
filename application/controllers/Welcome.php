@@ -258,6 +258,29 @@ class Welcome extends CI_Controller {
 
 		// ------------------------------------------------------------
 
+		// TEST WITH ADD IMAGE
+		$add_image = [
+			'data' => 'https://domprojects.com',
+			'save_folder' => $save_folder,
+			'save_name' => 'qrc_add_image',
+			'level' => 'H',
+			'size' => 20,
+			'margin' => 0,
+			'saveandprint' => $saveandprint,
+			'outputformat' => $outputformat
+		];
+		$this->php_qrcode->generate($add_image);
+
+
+		$test = [
+			'qrcode_source' => 'images/qrc_add_image.'.$outputformat,
+			'image_source' => 'assets/fleur.png',
+			'transparent' => TRUE
+		];
+		$this->data['qrc_add_image'] = $this->php_qrcode->generate_add_image($test);
+
+		// ------------------------------------------------------------
+
 		$this->load->view('welcome_message', $this->data);
 	}
 }

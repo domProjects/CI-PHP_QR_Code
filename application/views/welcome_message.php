@@ -47,6 +47,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 			<h1>WI-FI</h1>
 			<p><img src="<?php echo base_url($qrc_wifi); ?>"></p>
+
+			<h1>ADD IMAGE IN QR CODE</h1>
+			<p><img src="<?php echo base_url($qrc_add_image); ?>"></p>
 		</div>
 
 		<p class="footer">Page rendered in <strong>{elapsed_time}</strong> seconds. <?php echo  (ENVIRONMENT === 'development') ?  'CodeIgniter Version <strong>' . CI_VERSION . '</strong>' : '' ?></p>

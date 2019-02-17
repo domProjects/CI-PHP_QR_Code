@@ -126,6 +126,51 @@ class Php_qrcode {
 
 	// --------------------------------------------------------------------
 
+	public function generate_add_image($param = [])
+	{
+		//
+		foreach ($param as $key => $val)
+		{
+			$this->$key = $val;
+		}
+
+		$qrcode_source = $this->qrcode_source;
+		$image_source = $this->image_source;
+
+		$qrc_source = imagecreatefrompng($qrcode_source);
+
+		// Start to draw the image on the QR Code
+		$img_source = imagecreatefromstring(file_get_contents($image_source));
+
+		// Fix for the transparent background
+		if ($this->transparent !== FALSE)
+		{
+			imagecolortransparent($img_source, imagecolorallocatealpha($img_source, 0, 0, 0, 127));
+			imagealphablending($img_source, FALSE);
+			imagesavealpha($img_source, TRUE);
+		}
+
+		$qrc_width = imagesx($qrc_source);
+		$qrc_height = imagesy($qrc_source);
+
+		$img_width = imagesx($img_source);
+		$img_height = imagesy($img_source);
+
+		// Scale logo to fit in the QR Code
+		$img_qrc_width = $qrc_width / 3;
+		$scale = $img_width / $img_qrc_width;
+		$img_qrc_height = $img_height / $scale;
+
+		imagecopyresampled($qrc_source, $img_source, $qrc_width / 3, $qrc_height / 3, 0, 0, $img_qrc_width, $img_qrc_height, $img_width, $img_height);
+
+		// Save QR code
+		imagepng($qrc_source, $qrcode_source);
+
+		return $qrcode_source;
+	}
+
+	// --------------------------------------------------------------------
+
 	/**
 	 * Clears the Php_qrcode values. Useful if multiple QR Code are being generated
 	 *
