@@ -9,14 +9,19 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 	</head>
 	<body>
 		<div class="container">
+			<h1>TEXT</h1>
+			<p><img src="<?php echo base_url($qrc_text); ?>"></p>
+
 			<h1>URL</h1>
 			<p><img src="<?php echo base_url($qrc_url); ?>"></p>
 
 			<h1>EMAIL</h1>
 			<h2>Address</h2>
 			<p><img src="<?php echo base_url($qrc_email_1); ?>"></p>
-			<h2>Address with subject</h2>
+			<h2>Address + Subject</h2>
 			<p><img src="<?php echo base_url($qrc_email_2); ?>"></p>
+			<h2>Address + Subject + Body</h2>
+			<p><img src="<?php echo base_url($qrc_email_3); ?>"></p>
 
 			<h1>TEL</h1>
 			<p><img src="<?php echo base_url($qrc_tel); ?>"></p>
@@ -26,6 +31,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<p><img src="<?php echo base_url($qrc_mecard); ?>"></p>
 			<h2>BIZCARD</h2>
 			<p><img src="<?php echo base_url($qrc_bizcard); ?>"></p>
+			<h2>VCARD Simple</h2>
+			<p><img src="<?php echo base_url($qrc_vcard_simple); ?>"></p>
+			<h2>VCARD Detailed</h2>
+			<p><img src="<?php echo base_url($qrc_vcard_detailed); ?>"></p>
 
 			<h1>SMS</h1>
 			<p><img src="<?php echo base_url($qrc_sms); ?>"></p>

@@ -35,6 +35,21 @@ class Welcome extends CI_Controller {
 
 		// ------------------------------------------------------------
 
+		// TEXT
+		$text = [
+			'data' => 'Hello World :)',
+			'save_folder' => $save_folder,
+			'save_name' => 'qrc_text',
+			'level' => 'L',
+			'size' => 5,
+			'margin' => 1,
+			'saveandprint' => $saveandprint,
+			'outputformat' => $outputformat
+		];
+		$this->data['qrc_text'] = $this->php_qrcode->generate($text);
+
+		// ------------------------------------------------------------
+
 		// URL
 		$url = [
 			'data' => 'https://domprojects.com',
@@ -65,9 +80,9 @@ class Welcome extends CI_Controller {
 
 		// EMAIL >> ADDRESS + SUBJECT
 		$email_2 = [
-			'data' => 'mailto:john.doe@example.com?subject=Mail%20from%20Our%20Site',
+			'data' => 'mailto:john.doe@example.com?subject='.urlencode('Mail from our site'),
 			'save_folder' => $save_folder,
-			'save_name' => 'qrc_email_address_with_subject',
+			'save_name' => 'qrc_email_address_+_subject',
 			'level' => 'L',
 			'size' => 5,
 			'margin' => 1,
@@ -76,11 +91,24 @@ class Welcome extends CI_Controller {
 		];
 		$this->data['qrc_email_2'] = $this->php_qrcode->generate($email_2);
 
+		// EMAIL >> ADDRESS + SUBJECT + BODY
+		$email_3 = [
+			'data' => 'mailto:john.doe@example.com?subject='.urlencode('Mail from our site').'&body='.urlencode('Please write your question here'),
+			'save_folder' => $save_folder,
+			'save_name' => 'qrc_email_address_+_subject_+_body',
+			'level' => 'L',
+			'size' => 5,
+			'margin' => 1,
+			'saveandprint' => $saveandprint,
+			'outputformat' => $outputformat
+		];
+		$this->data['qrc_email_3'] = $this->php_qrcode->generate($email_3);
+
 		// ------------------------------------------------------------
 
 		// TEL
 		$tel = [
-			'data' => 'tel:+33123456789',
+			'data' => 'tel:(049)012-345-678',
 			'save_folder' => $save_folder,
 			'save_name' => 'qrc_tel',
 			'level' => 'L',
@@ -95,7 +123,7 @@ class Welcome extends CI_Controller {
 
 		// CONTACT >> MECARD
 		$mecard = [
-			'data' => 'MECARD:N:Doe,John;ADR:76 9th Avenue, 4th Floor, New York, NY 10011;TEL:+33123456789;EMAIL:john.doe@example.com;;',
+			'data' => 'MECARD:N:Doe,John;ADR:76 9th Avenue, 4th Floor, New York, NY 10011;TEL:(049)012-345-678;EMAIL:john.doe@example.com;;',
 			'save_folder' => $save_folder,
 			'save_name' => 'qrc_mecard',
 			'level' => 'L',
@@ -108,7 +136,7 @@ class Welcome extends CI_Controller {
 
 		// CONTACT >> BIZCARD
 		$bizcard = [
-			'data' => 'BIZCARD:N:Doe;X:John;T:Software Engineer;C:Google;A:76 9th Avenue, 4th Floor, New York, NY 10011;B:+33123456789;E:john.doe@example.com;;',
+			'data' => 'BIZCARD:N:Doe;X:John;T:Software Engineer;C:My Company Inc.;A:76 9th Avenue, 4th Floor, New York, NY 10011;B:(049)012-345-678;E:john.doe@example.com;;',
 			'save_folder' => $save_folder,
 			'save_name' => 'qrc_bizcard',
 			'level' => 'L',
@@ -118,6 +146,49 @@ class Welcome extends CI_Controller {
 			'outputformat' => $outputformat
 		];
 		$this->data['qrc_bizcard'] = $this->php_qrcode->generate($bizcard);
+
+		// CONTACT >> VCARD SIMPLE
+		$vcard_simple_data = 'BEGIN:VCARD'."\n";
+		$vcard_simple_data.= 'FN:John Doe'."\n";
+		$vcard_simple_data.= 'TEL;WORK;VOICE:(049)012-345-678'."\n";
+		$vcard_simple_data.= 'END:VCARD';
+
+		$vcard_simple = [
+			'data' => $vcard_simple_data,
+			'save_folder' => $save_folder,
+			'save_name' => 'qrc_vcard_simple',
+			'level' => 'L',
+			'size' => 5,
+			'margin' => 1,
+			'saveandprint' => $saveandprint,
+			'outputformat' => $outputformat
+		];
+		$this->data['qrc_vcard_simple'] = $this->php_qrcode->generate($vcard_simple);
+
+		// CONTACT >> VCARD DETAILED
+		$vcard_detailed_data = 'BEGIN:VCARD'."\n";
+		$vcard_detailed_data.= 'VERSION:2.1'."\n";
+		$vcard_detailed_data.= 'N:Doe;John'."\n";
+		$vcard_detailed_data.= 'FN:John Doe'."\n";
+		$vcard_detailed_data.= 'ORG:My Company Inc.'."\n";
+		$vcard_detailed_data.= 'TEL;WORK;VOICE:(049)012-345-678'."\n";
+		$vcard_detailed_data.= 'TEL;HOME;VOICE:(049)012-345-987'."\n";
+		$vcard_detailed_data.= 'TEL;TYPE=cell:(049)888-123-123'."\n";
+		$vcard_detailed_data.= 'ADR;TYPE=work;LABEL="Our Office":;Suite 123;7th Avenue;New York;NY;91921-1234;USA'."\n";
+		$vcard_detailed_data.= 'EMAIL:john.doe@example.com'."\n";
+		$vcard_detailed_data.= 'END:VCARD';
+
+		$vcard_detailed = [
+			'data' => $vcard_detailed_data,
+			'save_folder' => $save_folder,
+			'save_name' => 'qrc_vcard_detailed',
+			'level' => 'L',
+			'size' => 5,
+			'margin' => 1,
+			'saveandprint' => $saveandprint,
+			'outputformat' => $outputformat
+		];
+		$this->data['qrc_vcard_detailed'] = $this->php_qrcode->generate($vcard_detailed);
 
 		// ------------------------------------------------------------
 
@@ -152,12 +223,14 @@ class Welcome extends CI_Controller {
 		// ------------------------------------------------------------
 
 		// CALENDAR
+		$calendar_data = 'BEGIN:VEVENT'."\n";
+		$calendar_data.= 'SUMMARY:Summer Vacation!'."\n";
+		$calendar_data.= 'DTSTART:20180601T070000Z'."\n";
+		$calendar_data.= 'DTEND:20180831T070000Z'."\n";
+		$calendar_data.= 'END:VEVENT';
+
 		$calendar = [
-			'data' => 'BEGIN:VEVENT
-SUMMARY:Summer Vacation!
-DTSTART:20180601T070000Z
-DTEND:20180831T070000Z
-END:VEVENT',
+			'data' => $calendar_data,
 			'save_folder' => $save_folder,
 			'save_name' => 'qrc_calendar',
 			'level' => 'L',
